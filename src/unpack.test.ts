@@ -71,9 +71,7 @@ describe('App', () => {
   });
 
   it('file', async () => {
-    const filename = 'john-doe.png';
-
-    const image = new File([new Blob()], filename, { type: 'image/png' });
+    const image = new File([new Blob()], 'john-doe.png', { type: 'image/png' });
     const formData = pack(image);
     const json = formData.get(JSON_KEY) as string;
 
@@ -85,7 +83,7 @@ describe('App', () => {
       .attach(
         data,
         fs.readFileSync(__dirname + '/testdata/image.png'),
-        filename
+        image.name
       );
 
     expect(response.status).toEqual(200);

@@ -10,6 +10,7 @@ describe('pack', () => {
 
     expect(data).toEqual(user);
     expect(formData.has(JSON_KEY)).toBe(true);
+    expect(formData instanceof FormData).toBe(true);
   });
 
   it('file', async () => {
@@ -20,6 +21,7 @@ describe('pack', () => {
     const uuid = json.split(FILE_PREFIX)[1];
 
     expect(validate(uuid)).toBe(true);
+    expect(formData instanceof FormData).toBe(true);
     expect((formData.get(json) as File).name).toEqual(image.name);
   });
 
@@ -45,6 +47,8 @@ describe('pack', () => {
 
     const formData = pack(user);
     const json = JSON.parse(formData.get(JSON_KEY) as string);
+
+    expect(formData instanceof FormData).toBe(true);
 
     expect(json.name).toEqual(user.name);
     expect((formData.get(json.image) as File).name).toEqual(user.image.name);

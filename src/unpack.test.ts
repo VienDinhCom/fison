@@ -112,12 +112,9 @@ describe('App', () => {
       ],
     };
 
-    type User = typeof user;
-
     const formData = pack(user);
     const json = formData.get(JSON_KEY) as string;
-
-    const data: User = JSON.parse(json);
+    const data: typeof user = JSON.parse(json);
 
     const response = await supertest(app)
       .post('/test')

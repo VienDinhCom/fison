@@ -1,6 +1,3 @@
-/**
- * @jest-environment jsdom
- */
 import { pack } from './pack';
 import { validate } from 'uuid';
 import { JSON_KEY, FILE_PREFIX } from './constants';

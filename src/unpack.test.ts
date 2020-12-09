@@ -117,7 +117,7 @@ describe('App', () => {
     const formData = pack(user);
     const json = formData.get(JSON_KEY) as string;
 
-    const data: User = JSON.parse(formData.get(JSON_KEY) as string);
+    const data: User = JSON.parse(json);
 
     const response = await supertest(app)
       .post('/test')

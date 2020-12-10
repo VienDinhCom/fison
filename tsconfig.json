@@ -1,19 +1,15 @@
 {
   "compilerOptions": {
-    "target": "ES2017",
+    "target": "ES5",
     "lib": ["ES2015", "DOM"],
-    "allowJs": true,
-    "skipLibCheck": true,
+    "outDir": "dist",
     "strict": true,
     "noImplicitAny": false,
-    "forceConsistentCasingInFileNames": true,
-    "noEmit": true,
-    "esModuleInterop": true,
     "module": "CommonJS",
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "jsx": "preserve"
+    "moduleResolution": "Node",
+    "esModuleInterop": true,
+    "declaration": true
   },
-  "include": ["**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules"]
+  "include": ["src"],
+  "exclude": ["node_modules", "**/*.test.ts"]
 }

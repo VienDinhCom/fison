@@ -58,10 +58,7 @@ function _getFormidableOptions(options?: Options) {
   return formidableOptions;
 }
 
-async function _mapFiles(
-  files: File[],
-  callback: (file: File) => unknown | Promise<unknown>
-) {
+async function _mapFiles(files: File[], callback: (file: File) => unknown | Promise<unknown>) {
   const result: { [key: string]: unknown } = {};
 
   for (let key in files) {

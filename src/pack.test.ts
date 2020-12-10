@@ -1,6 +1,6 @@
 import { pack } from './pack';
 import { validate } from 'uuid';
-import { JSON_KEY, FILE_PREFIX } from './constants';
+import { JSON_KEY, FILE_KEY_PREFIX } from './constants';
 
 describe('pack', () => {
   it('json', async () => {
@@ -18,7 +18,7 @@ describe('pack', () => {
     const formData = pack(image);
     const json = JSON.parse(formData.get(JSON_KEY) as string);
 
-    const uuid = json.split(FILE_PREFIX)[1];
+    const uuid = json.split(FILE_KEY_PREFIX)[1];
 
     expect(validate(uuid)).toBe(true);
     expect(formData instanceof FormData).toBe(true);

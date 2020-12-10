@@ -21,6 +21,23 @@ describe('App', () => {
         next(error);
       }
     });
+
+    app.post('/test/mapfiles', async (req, res, next) => {
+      try {
+        const data = await unpack(req, {
+          mapFiles: (file) => {
+            return {
+              name: file.name,
+              type: file.type,
+            };
+          },
+        });
+
+        res.status(200).json(data);
+      } catch (error) {
+        next(error);
+      }
+    });
   });
 
   it('json', async () => {
@@ -108,5 +125,31 @@ describe('App', () => {
 
     expect(response.body.posts[1].title).toEqual(user.posts[1].title);
     expect(response.body.posts[1].image.name).toEqual(user.posts[1].image.name);
+  });
+
+  it('map files', async () => {
+    const image = new File([new Blob()], 'john-doe.png', { type: 'image/png' });
+    const formData = pack(image);
+    const json = formData.get(JSON_KEY) as string;
+
+    const data = JSON.parse(json);
+
+    const response = await supertest(app)
+      .post('/test/mapfiles')
+      .field(JSON_KEY, json)
+      .attach(
+        data,
+        fs.readFileSync(__dirname + '/testdata/image.png'),
+        image.name
+      );
+
+    expect(response.status).toEqual(200);
+    expect({
+      name: response.body.name,
+      type: response.body.type,
+    }).toEqual({
+      name: image.name,
+      type: image.type,
+    });
   });
 });

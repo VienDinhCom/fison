@@ -1,5 +1,5 @@
 import { v4 as uuid } from 'uuid';
-import { FILE_PREFIX, JSON_KEY } from './constants';
+import { FILE_KEY_PREFIX, JSON_KEY } from './constants';
 
 interface File {
   id: string;
@@ -7,7 +7,7 @@ interface File {
 }
 
 function createFile(input: Blob) {
-  return { id: `${FILE_PREFIX}${uuid()}`, value: input };
+  return { id: `${FILE_KEY_PREFIX}${uuid()}`, value: input };
 }
 
 export function pack(data: any) {

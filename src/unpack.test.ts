@@ -1,58 +1,25 @@
 import fs from 'fs';
-import { Server } from 'http';
-import express, { Express } from 'express';
 import supertest from 'supertest';
-import formidable from 'formidable';
-import { pack } from './pack';
-import 'isomorphic-fetch';
-import chai from 'chai';
-import chaiHttp from 'chai-http';
-import { validate } from 'uuid';
-import { JSON_KEY, FILE_PREFIX } from './constants';
+import express, { Express } from 'express';
 
-chai.use(chaiHttp);
+import { pack } from './pack';
+import { unpack } from './unpack';
+import { JSON_KEY } from './constants';
 
 describe('App', () => {
   let app: Express;
-  let server: Server;
 
   beforeAll(async () => {
     app = express();
 
-    // app.use(bodyParser.urlencoded({ extended: false }));
-    // app.use(bodyParser.json());
+    app.post('/test', async (req, res, next) => {
+      try {
+        const data = await unpack(req);
 
-    app.post('/test', (req, res, next) => {
-      const form = formidable({ multiples: true });
-
-      form.parse(req, (err, fields, files) => {
-        if (err) {
-          next(err);
-          return;
-        }
-
-        console.log({ fields, files });
-
-        const json = fields[JSON_KEY];
-
-        const data = JSON.parse(json, (key, value) => {
-          const file = files[value];
-
-          if (file) {
-            const uuid = value.split(FILE_PREFIX)[1];
-
-            if (validate(uuid)) {
-              return file;
-            } else {
-              return value;
-            }
-          }
-
-          return value;
-        });
-
-        res.json(data);
-      });
+        res.status(200).json(data);
+      } catch (error) {
+        next(error);
+      }
     });
   });
 

@@ -1,6 +1,4 @@
-# fison
-
-Post `JSON` and `Files` in a single request.
+# Fison - Post/Upload `JSON` and `Files` in a Single Request.
 
 ## Installation
 

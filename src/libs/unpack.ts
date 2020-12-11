@@ -5,11 +5,11 @@ import { JSON_KEY, FILE_KEY_PREFIX } from './constants';
 interface File {
   size: number;
   path: string;
-  name: string;
-  type: string;
-  hash?: string;
-  lastModifiedDate?: Date;
   toJSON(): Function;
+  name: string | null;
+  type: string | null;
+  lastModifiedDate: Date | null;
+  hash: string | 'sha1' | 'md5' | 'sha256' | null;
 }
 
 interface Options {

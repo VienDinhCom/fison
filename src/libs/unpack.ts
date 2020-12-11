@@ -5,12 +5,14 @@ import { JSON_KEY, FILE_KEY_PREFIX } from './constants';
 interface File {
   size: number;
   path: string;
-  toJSON(): Function;
   name: string | null;
   type: string | null;
+  hash: string | null;
   lastModifiedDate: Date | null;
-  hash: string | 'sha1' | 'md5' | 'sha256' | null;
 }
+
+type Files = { [key: string]: File };
+type Fields = { [key: string]: string };
 
 interface Options {
   hash?: boolean;
@@ -58,7 +60,7 @@ function _getFormidableOptions(options?: Options) {
   return formidableOptions;
 }
 
-async function _mapFiles(files: File[], callback: (file: File) => unknown | Promise<unknown>) {
+async function _mapFiles(files: Files, callback: (file: File) => unknown | Promise<unknown>) {
   const result: { [key: string]: unknown } = {};
 
   for (let key in files) {
@@ -76,11 +78,13 @@ export function unpack<T>(request: unknown, options?: Options) {
   const form = formidable(_getFormidableOptions(options));
 
   return new Promise<T>((resolve, reject) => {
-    form.parse(request, async (_error: any, _fields: any, _files: any) => {
+    form.parse(request, async (_error: Error, _fields: Fields, _files: Files) => {
       try {
         if (_error) throw _error;
 
-        let files = _files;
+        type MappedFiles = { [key: string]: unknown };
+
+        let files: MappedFiles = _files;
         const json = _fields[JSON_KEY];
 
         if (typeof options?.mapFiles === 'function') {
@@ -103,7 +107,7 @@ export function unpack<T>(request: unknown, options?: Options) {
           return value;
         });
 
-        return resolve(data);
+        resolve(data);
       } catch (error) {
         reject(error);
       }

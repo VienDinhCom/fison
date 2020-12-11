@@ -72,7 +72,7 @@ async function _mapFiles(files: File[], callback: (file: File) => unknown | Prom
   return result;
 }
 
-export function unpack<T>(request: any, options?: Options) {
+export function unpack<T>(request: unknown, options?: Options) {
   const form = formidable(_getFormidableOptions(options));
 
   return new Promise<T>((resolve, reject) => {

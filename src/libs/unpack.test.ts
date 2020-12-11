@@ -64,11 +64,7 @@ describe('App', () => {
     const response = await supertest(app)
       .post('/test')
       .field(JSON_KEY, json)
-      .attach(
-        data,
-        fs.readFileSync(__dirname + '/testdata/image.png'),
-        image.name
-      );
+      .attach(data, fs.readFileSync(__dirname + '/testdata/image.png'), image.name);
 
     expect(response.status).toEqual(200);
     expect(response.body.name).toEqual(image.name);
@@ -101,11 +97,7 @@ describe('App', () => {
     const response = await supertest(app)
       .post('/test')
       .field(JSON_KEY, json)
-      .attach(
-        (data.image as unknown) as string,
-        fs.readFileSync(__dirname + '/testdata/image.png'),
-        user.image.name
-      )
+      .attach((data.image as unknown) as string, fs.readFileSync(__dirname + '/testdata/image.png'), user.image.name)
       .attach(
         (data.posts[0].image as unknown) as string,
         fs.readFileSync(__dirname + '/testdata/image.png'),
@@ -137,11 +129,7 @@ describe('App', () => {
     const response = await supertest(app)
       .post('/test/mapfiles')
       .field(JSON_KEY, json)
-      .attach(
-        data,
-        fs.readFileSync(__dirname + '/testdata/image.png'),
-        image.name
-      );
+      .attach(data, fs.readFileSync(__dirname + '/testdata/image.png'), image.name);
 
     expect(response.status).toEqual(200);
     expect({

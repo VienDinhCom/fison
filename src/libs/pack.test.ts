@@ -54,13 +54,9 @@ describe('pack', () => {
     expect((formData.get(json.image) as File).name).toEqual(user.image.name);
 
     expect(json.posts[0].title).toEqual(user.posts[0].title);
-    expect((formData.get(json.posts[0].image) as File).name).toEqual(
-      user.posts[0].image.name
-    );
+    expect((formData.get(json.posts[0].image) as File).name).toEqual(user.posts[0].image.name);
 
     expect(json.posts[1].title).toEqual(user.posts[1].title);
-    expect((formData.get(json.posts[1].image) as File).name).toEqual(
-      user.posts[1].image.name
-    );
+    expect((formData.get(json.posts[1].image) as File).name).toEqual(user.posts[1].image.name);
   });
 });

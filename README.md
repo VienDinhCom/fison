@@ -14,7 +14,7 @@ import fison from 'fison/browser';
 
 ```html
 <script type="module">
-  import fison from 'https://cdn.skypack.dev/fison/browser';
+  import fison from 'https://cdn.skypack.dev/fison@0/browser';
 </script>
 ```
 

@@ -1,7 +1,16 @@
 {
   "name": "fison",
-  "description": "Post JSON and Files in a single request.",
-  "version": "0.0.7",
+  "description": "Post/Upload JSON and Files in a single request.",
+  "keywords": [
+    "fison",
+    "post",
+    "upload",
+    "json",
+    "files",
+    "multipart",
+    "form-data"
+  ],
+  "version": "0.0.8",
   "author": "Vien Dinh",
   "license": "MIT",
   "scripts": {

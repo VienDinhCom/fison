@@ -10,7 +10,7 @@
     "multipart",
     "form-data"
   ],
-  "version": "0.0.10",
+  "version": "0.0.11",
   "author": "Vien Dinh",
   "license": "MIT",
   "scripts": {

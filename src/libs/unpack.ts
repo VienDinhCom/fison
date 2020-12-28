@@ -2,7 +2,7 @@ import { validate } from 'uuid';
 import formidable from 'formidable';
 import { JSON_KEY, FILE_KEY_PREFIX } from './constants';
 
-export class File {
+interface File {
   size: number;
   path: string;
   name: string | null;

@@ -1,7 +1,8 @@
+import type { File } from './libs/unpack';
 import FormidableFile from 'formidable/lib/File';
-import { unpack, File } from './libs/unpack';
+import { unpack } from './libs/unpack';
 
-const File: File = FormidableFile;
+const FormFile: File = FormidableFile;
 
-export { unpack, File };
+export { unpack, FormFile };
 export default { unpack };

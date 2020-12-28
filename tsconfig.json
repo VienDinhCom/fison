@@ -5,6 +5,7 @@
     "outDir": "dist",
     "strict": true,
     "noImplicitAny": false,
+    "strictPropertyInitialization": false,
     "module": "CommonJS",
     "moduleResolution": "Node",
     "esModuleInterop": true,

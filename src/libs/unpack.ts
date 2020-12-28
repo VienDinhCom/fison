@@ -2,7 +2,7 @@ import { validate } from 'uuid';
 import formidable from 'formidable';
 import { JSON_KEY, FILE_KEY_PREFIX } from './constants';
 
-interface File {
+export interface File {
   size: number;
   path: string;
   name: string | null;
@@ -74,7 +74,7 @@ async function _mapFiles(files: Files, callback: (file: File) => unknown | Promi
   return result;
 }
 
-export function unpack<T>(request: unknown, options?: Options) {
+export function unpack<T = any>(request: unknown, options?: Options) {
   const form = formidable(_getFormidableOptions(options));
 
   return new Promise<T>((resolve, reject) => {
@@ -82,17 +82,30 @@ export function unpack<T>(request: unknown, options?: Options) {
       try {
         if (_error) throw _error;
 
-        type MappedFiles = { [key: string]: unknown };
-
-        let files: MappedFiles = _files;
         const json = _fields[JSON_KEY];
 
-        if (typeof options?.mapFiles === 'function') {
-          files = await _mapFiles(_files, options.mapFiles);
+        // normal form data
+        if (json === undefined) {
+          resolve({ fields: _fields, files: _files } as any);
         }
 
+        // map files callback
+        type MappedFiles = { [key: string]: unknown };
+        let mappedFiles: MappedFiles = _files;
+
+        if (typeof options?.mapFiles === 'function') {
+          mappedFiles = await _mapFiles(_files, options.mapFiles);
+        }
+
+        // map files to json
         const data = JSON.parse(json, (key, value) => {
-          const file = files[value];
+          let file: Files[0] | MappedFiles[0];
+
+          if (typeof options?.mapFiles === 'function') {
+            file = mappedFiles[value];
+          } else {
+            file = _files[value];
+          }
 
           if (file !== undefined) {
             const uuid = value.split(FILE_KEY_PREFIX)[1];

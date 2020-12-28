@@ -26,10 +26,7 @@ describe('App', () => {
       try {
         const data = await unpack(req, {
           mapFiles: (file) => {
-            return {
-              name: file.name,
-              type: file.type,
-            };
+            return `https://test.url/${file.name}`;
           },
         });
 
@@ -132,12 +129,19 @@ describe('App', () => {
       .attach(data, fs.readFileSync(__dirname + '/testdata/image.png'), image.name);
 
     expect(response.status).toEqual(200);
-    expect({
-      name: response.body.name,
-      type: response.body.type,
-    }).toEqual({
-      name: image.name,
-      type: image.type,
-    });
+    expect(response.body).toEqual(`https://test.url/${image.name}`);
+  });
+
+  it('form data only', async () => {
+    const image = 'john-doe.png';
+
+    const response = await supertest(app)
+      .post('/test/mapfiles')
+      .field('name', 'John Doe')
+      .attach('image', fs.readFileSync(__dirname + '/testdata/image.png'), image);
+
+    expect(response.status).toEqual(200);
+    expect(response.body.fields['name']).toEqual('John Doe');
+    expect(response.body.files['image'].name).toEqual(image);
   });
 });

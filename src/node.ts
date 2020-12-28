@@ -1,4 +1,7 @@
-import { unpack } from './libs/unpack';
+import FormidableFile from 'formidable/lib/File';
+import { unpack, File } from './libs/unpack';
 
-export { unpack };
+const File: File = FormidableFile;
+
+export { unpack, File };
 export default { unpack };

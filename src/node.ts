@@ -1,4 +1,4 @@
-import { unpack } from './libs/unpack';
+import { unpack, Options } from './libs/unpack';
 
-export { unpack };
+export { unpack, Options };
 export default { unpack };

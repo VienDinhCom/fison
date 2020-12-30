@@ -14,7 +14,7 @@ interface File {
 type Files = { [key: string]: File };
 type Fields = { [key: string]: string };
 
-interface Options {
+export interface Options {
   hash?: boolean;
   encoding?: string;
   uploadDir?: string;
@@ -82,11 +82,12 @@ export function unpack<T = any>(request: unknown, options?: Options) {
       try {
         if (_error) throw _error;
 
+        // json data
         const json = _fields[JSON_KEY];
 
         // normal form data
         if (json === undefined) {
-          resolve({ fields: _fields, files: _files } as any);
+          return resolve({ fields: _fields, files: _files } as any);
         }
 
         // map files callback

@@ -45,5 +45,5 @@ export function pack(data: any) {
     formData.append(id, value);
   });
 
-  return formData;
+  return formData as FormData;
 }

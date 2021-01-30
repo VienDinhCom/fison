@@ -10,7 +10,7 @@
     "multipart",
     "form-data"
   ],
-  "version": "0.0.12",
+  "version": "0.0.13",
   "author": "Vien Dinh",
   "license": "MIT",
   "scripts": {
@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "formidable": "^1.2.2",
+    "universal-formdata": "^0.0.0",
     "uuid": "^8.3.1"
   },
   "devDependencies": {
